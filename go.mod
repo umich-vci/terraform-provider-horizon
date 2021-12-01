@@ -5,5 +5,5 @@ go 1.16
 require (
 	github.com/hashicorp/terraform-plugin-docs v0.5.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.8.0
-	github.com/umich-vci/gohorizon v0.0.0-20211109173219-fd205b271c39
+	github.com/umich-vci/gohorizon v0.0.0-20211201153407-15bcfb6e7a30
 )
