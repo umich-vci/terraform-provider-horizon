@@ -15,17 +15,17 @@ func TestAccResourceFarm(t *testing.T) {
 		ProviderFactories: providerFactories,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccResourceFarm,
+				Config: testAccResourceDesktopPool,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestMatchResourceAttr(
-						"horizon_farm.foo", "sample_attribute", regexp.MustCompile("^ba")),
+						"horizon_desktop_pool.foo", "sample_attribute", regexp.MustCompile("^ba")),
 				),
 			},
 		},
 	})
 }
 
-const testAccResourceFarm = `
+const testAccResourceDesktopPool = `
 resource "scaffolding_resource" "foo" {
   sample_attribute = "bar"
 }
