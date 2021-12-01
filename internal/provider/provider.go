@@ -93,7 +93,7 @@ func configure(version string, p *schema.Provider) func(context.Context, *schema
 			return nil, diag.FromErr(err)
 		}
 
-		client.GetConfig().AddDefaultHeader("Authorization", fmt.Sprintf("Bearer %s", tokens.AccessToken))
+		client.GetConfig().AddDefaultHeader("Authorization", fmt.Sprintf("Bearer %s", *tokens.AccessToken))
 		return &apiClient{Client: *client}, nil
 	}
 }
