@@ -55,7 +55,6 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Description: "Only applies to automated desktop pools with manual user assignment. Whether assignment of multiple users to a single machine is allowed. If this is true then automatic_user_assignment should be false. ",
 				Type:        schema.TypeBool,
 				Optional:    true,
-				Computed:    false,
 			},
 			"automatic_user_assignment": {
 				Description: "Automatic assignment of a user the first time they access the machine. This property is applicable if user_assignment is set to DEDICATED with default value as true.",
@@ -93,7 +92,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Type:        schema.TypeList,
 				Optional:    true,
 				MaxItems:    1,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ad_container_rdn": {
 							Description: "Instant Clone Engine Active Directory container for ClonePrep.",
@@ -144,7 +143,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Type:        schema.TypeList,
 				Optional:    true,
 				MaxItems:    1,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"sysprep_customization_spec_id": {
 							Description: "This is required when customization_type is set as SYS_PREP. Customization specification to use when Sysprep customization is requested.",
@@ -182,7 +181,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Type:        schema.TypeList,
 				Optional:    true,
 				MaxItems:    1,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"allow_users_to_choose_protocol": {
 							Description: "Indicates whether the users can choose the protocol.",
@@ -262,13 +261,13 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Optional:    true,
 				Default:     true,
 			},
-			"nics": {},
+			// "nics": {},
 			"pattern_naming_settings": {
 				Description: "Naming pattern settings for Automated desktop pool.",
 				Type:        schema.TypeList,
 				Optional:    true,
 				MaxItems:    1,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"naming_pattern": {
 							Description: "Virtual machines will be named according to the specified naming pattern. By default, view manager appends a unique number to the specified pattern to provide a unique name for each virtual machine. To place this unique number elsewhere in the pattern, use '{n}'. (For example: vm-{n}-sales.) The unique number can also be made a fixed length. (For example: vm-{n:fixed=3}-sales will name VMs from vm-001-sales to vm-999-sales). Machine names are constrained to a maximum size of 15 characters including the unique number. Therefore, care must be taken when choosing a pattern. If the maximum desktop size is 9 machines, the pattern must be at most 14 characters. For 99 machines, 13 characters, for 999 machines, 12 characters. For 9999 machines, 11 characters. If using a fixed size token, use a maximum of 14 characters for \"n=1\", 13 characters for \"n=2\", 12 characters for \"n=3\", and 11 characters for \"n=4\". If {n} is specified with no size, a size of 2 is automatically used and if no {} is specified, {n=2} is automatically appended to the end of the pattern.",
@@ -308,7 +307,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Type:        schema.TypeList,
 				Required:    true,
 				MaxItems:    1,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"host_or_cluster_id": {
 							Description: "Host or cluster where the machines are deployed in. For Instant clone desktops it can only be set to a cluster id.",
@@ -366,7 +365,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 					},
 				},
 			},
-			"session_settings": {},
+			// "session_settings": {},
 			"session_type": {
 				Description:  "Supported session types for this desktop pool. If this property is set to APPLICATION then this desktop pool can be used for application pool creation. This will be useful when the machines in the pool support application remoting.",
 				Type:         schema.TypeString,
@@ -378,6 +377,9 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Description: "Locations of the category folder in the user's OS containing a shortcut to the desktop pool. This is required if the category_folder_name is set.",
 				Type:        schema.TypeSet,
 				Optional:    true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
 				//ValidateFunc: validation.StringInSlice([]string{"START_MENU", "DESKTOP"}, false),
 			},
 			"source": {
@@ -387,7 +389,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice([]string{"INSTANT_CLONE", "VIRTUAL_CENTER"}, false),
 			},
-			"specific_naming_settings": {},
+			// "specific_naming_settings": {},
 			"stop_provisioning_on_error": {
 				Description: "Disable provisioning on the pool if there is a provisioning error.",
 				Type:        schema.TypeBool,
@@ -399,13 +401,13 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Type:        schema.TypeList,
 				Required:    true,
 				MaxItems:    1,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"datastores": {
 							Description: "Datastores to store the machine.",
 							Type:        schema.TypeSet,
 							Required:    true,
-							Elem: schema.Resource{
+							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"datastore_id": {
 										Description: "Id of the datastore.",
@@ -464,19 +466,19 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 				Type:        schema.TypeList,
 				Optional:    true,
 				MaxItems:    1,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"blackout_times": {
 							Description: "Fields for specifying blackout time for View Storage Accelerator. Storage accelerator regeneration and VM disk space reclamation do not occur during blackout times. The same blackout policy applies to both operations.",
 							Type:        schema.TypeList,
 							Optional:    true,
-							Elem: schema.Resource{
+							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"days": {
 										Description: "List of days for a given range of time.",
 										Type:        schema.TypeList,
 										Required:    true,
-										Elem: schema.Schema{
+										Elem: &schema.Schema{
 											Type: schema.TypeString,
 										},
 									},
