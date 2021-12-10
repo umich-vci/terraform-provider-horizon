@@ -626,21 +626,21 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 	case "INSTANT_CLONE":
 		var icErr diag.Diagnostics
 
-		if pvmid, ok := provSettingsRaw["parent_vm_id"]; ok {
-			parentVMID := pvmid.(string)
-			body.ProvisioningSettings.ParentVmId = &parentVMID
+		if provSettingsRaw["parent_vm_id"].(string) != "" {
+			pvmid := provSettingsRaw["parent_vm_id"].(string)
+			provSettings.ParentVmId = &pvmid
 		} else {
 			icErr = append(icErr, diag.Errorf("parent_vm_id must be set when source is \"INSTANT_CLONE\"")...)
 		}
 
-		if bsid, ok := provSettingsRaw["base_snapshot_id"]; ok {
-			basesnapID := bsid.(string)
-			body.ProvisioningSettings.BaseSnapshotId = &basesnapID
+		if provSettingsRaw["base_snapshot_id"].(string) != "" {
+			basesnapID := provSettingsRaw["base_snapshot_id"].(string)
+			provSettings.BaseSnapshotId = &basesnapID
 		} else {
 			icErr = append(icErr, diag.Errorf("base_snapshot_id must be set when source is \"INSTANT_CLONE\"")...)
 		}
 
-		if _, ok := provSettingsRaw["vm_template_id"]; ok {
+		if provSettingsRaw["vm_template_id"].(string) != "" {
 			icErr = append(icErr, diag.Errorf("vm_template_id must not be set when source is \"INSTANT_CLONE\"")...)
 		}
 
@@ -650,18 +650,18 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 	case "VIRTUAL_CENTER":
 		var fcErr diag.Diagnostics
 
-		if vtid, ok := provSettingsRaw["vm_template_id"]; ok {
-			templateID := vtid.(string)
+		if provSettingsRaw["vm_template_id"].(string) != "" {
+			templateID := provSettingsRaw["vm_template_id"].(string)
 			body.ProvisioningSettings.VmTemplateId = &templateID
 		} else {
 			fcErr = append(fcErr, diag.Errorf("vm_template_id must be set when source is \"VIRTUAL_CENTER\"")...)
 		}
 
-		if _, ok := provSettingsRaw["parent_vm_id"]; ok {
+		if provSettingsRaw["parent_vm_id"].(string) != "" {
 			fcErr = append(fcErr, diag.Errorf("parent_vm_id must not be set when source is \"VIRTUAL_CENTER\"")...)
 		}
 
-		if _, ok := provSettingsRaw["base_snapshot_id"]; ok {
+		if provSettingsRaw["base_snapshot_id"] != "" {
 			fcErr = append(fcErr, diag.Errorf("base_snapshot_id must not be set when source is \"VIRTUAL_CENTER\"")...)
 		}
 
