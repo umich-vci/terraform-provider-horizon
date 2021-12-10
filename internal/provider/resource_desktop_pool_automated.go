@@ -675,9 +675,9 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	body.ProvisioningSettings = provSettings
 
-	_, err := client.InventoryApi.CreateDesktopPool(ctx).Body(*body).Execute()
+	resp, err := client.InventoryApi.CreateDesktopPool(ctx).Body(*body).Execute()
 	if err != nil {
-		return diag.FromErr(err)
+		return returnResponseErr(resp, err)
 	}
 
 	return resourceDesktopPoolRead(ctx, d, meta)
