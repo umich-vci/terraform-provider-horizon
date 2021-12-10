@@ -33,7 +33,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 			},
 			"naming_method": {
 				Description:  "Naming method for the desktop pool.",
-				Type:         schema.TypeBool,
+				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice([]string{"SPECIFIED", "PATTERN"}, false),
