@@ -87,6 +87,12 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 					Type: schema.TypeString,
 				},
 			},
+			"customization_type": {
+				Description:  "Type of customization to use. NONE: Applicable To: Full clone desktop pools. No customization. SYS_PREP: Applicable To: Full clone desktop pools. Microsoft Sysprep is a tool to deploy the configured operating system installation from a base image. The machine can then be customized based on an answer script. Sysprep can modify a larger number of configurable parameters than QuickPrep. CLONE_PREP: Applicable To: Instant clone desktop pools. ClonePrep is a VMware system tool executed by Instant Clone Engine during a instant clone machine deployment. ClonePrep personalizes each machine created from the Master image.",
+				Type:         schema.TypeString,
+				Required:     true,
+				ValidateFunc: validation.StringInSlice([]string{"NONE", "SYS_PREP", "CLONE_PREP"}, false),
+			},
 			"clone_prep_settings": {
 				Description: "ClonePrep is a VMware system tool executed by Instant Clone Engine during a instant clone machine deployment. ClonePrep personalizes each machine created from the Master image.",
 				Type:        schema.TypeList,
@@ -547,6 +553,7 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 	namingMethod := d.Get("naming_method").(string)
 	vCenterID := d.Get("vcenter_id").(string)
 	agID := d.Get("access_group_id").(string)
+	custType := d.Get("customization_type").(string)
 
 	//access_group_id
 
@@ -666,7 +673,7 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 			fcErr = append(fcErr, diag.Errorf("parent_vm_id must not be set when source is \"VIRTUAL_CENTER\"")...)
 		}
 
-		if provSettingsRaw["base_snapshot_id"] != "" {
+		if provSettingsRaw["base_snapshot_id"].(string) != "" {
 			fcErr = append(fcErr, diag.Errorf("base_snapshot_id must not be set when source is \"VIRTUAL_CENTER\"")...)
 		}
 
@@ -675,6 +682,69 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 		}
 	default:
 		return diag.Errorf("invalid source - should not be possible to get here")
+	}
+
+	clonePrepRaw, clonePrepDec := d.GetOk("clone_prep_settings")
+	sysPrepRaw, sysPrepDec := d.GetOk("sys_prep_settings")
+	custSettings := gohorizon.NewDesktopPoolCustomizationSettingsCreateSpec(custType)
+	var custErr diag.Diagnostics
+	switch custType {
+	case "NONE":
+		if clonePrepDec {
+			custErr = append(custErr, diag.Errorf("clone_prep_settings must not be specified when customization_type is \"NONE\"")...)
+		}
+		if sysPrepDec {
+			custErr = append(custErr, diag.Errorf("sys_prep_settings must not be specified when customization_type is \"NONE\"")...)
+		}
+	case "SYS_PREP":
+		if clonePrepDec {
+			custErr = append(custErr, diag.Errorf("clone_prep_settings must not be specified when customization_type is \"SYS_PREP\"")...)
+		}
+		if sysPrepDec {
+			sysPrep := sysPrepRaw.([]interface{})[0].(map[string]interface{})
+			spCustID := sysPrep["sysprep_customization_spec_id"].(string)
+			custSettings.SysprepCustomizationSpecId = &spCustID
+		} else {
+			custErr = append(custErr, diag.Errorf("sys_prep_settings must be specified when customization_type is \"SYS_PREP\"")...)
+		}
+	case "CLONE_PREP":
+		if sysPrepDec {
+			custErr = append(custErr, diag.Errorf("sys_prep_settings must not be specified when customization_type is \"CLONE_PREP\"")...)
+		}
+		if clonePrepDec {
+			clonePrep := clonePrepRaw.([]interface{})[0].(map[string]interface{})
+			clonePrepSettings := gohorizon.NewDesktopPoolCloneprepCustomizationSettingsCreateSpec()
+
+			adRDN := clonePrep["ad_container_rdn"].(string)
+			icdaID := clonePrep["instant_clone_domain_account_id"].(string)
+			pca := clonePrep["priming_computer_account"].(string)
+			psScriptName := clonePrep["post_synchronization_script_name"].(string)
+			psScriptParams := clonePrep["post_synchronization_script_parameters"].(string)
+			poScriptName := clonePrep["power_off_script_name"].(string)
+			poScriptParams := clonePrep["power_off_script_parameters"].(string)
+			reuse := clonePrep["reuse_pre_existing_accounts"].(bool)
+
+			clonePrepSettings.PostSynchronizationScriptName = &psScriptName
+			clonePrepSettings.PostSynchronizationScriptParameters = &psScriptParams
+			clonePrepSettings.PowerOffScriptName = &poScriptName
+			clonePrepSettings.PowerOffScriptParameters = &poScriptParams
+			clonePrepSettings.PrimingComputerAccount = &pca
+
+			custSettings.AdContainerRdn = &adRDN
+			custSettings.InstantCloneDomainAccountId = &icdaID
+			custSettings.ReusePreExistingAccounts = &reuse
+			custSettings.CloneprepCustomizationSettings = clonePrepSettings
+		} else {
+			custErr = append(custErr, diag.Errorf("clone_prep_settings must be specified when customization_type is \"CLONE_PREP\"")...)
+		}
+	default:
+		return diag.Errorf("invalid customization_type - should not be possible to get here")
+	}
+
+	body.CustomizationSettings = custSettings
+
+	if custErr != nil {
+		return custErr
 	}
 
 	body.ProvisioningSettings = provSettings
