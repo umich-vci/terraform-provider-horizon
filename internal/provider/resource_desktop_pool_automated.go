@@ -9,7 +9,7 @@ import (
 	"github.com/umich-vci/gohorizon"
 )
 
-func resourceFarm() *schema.Resource {
+func resourceDesktopPoolAutomated() *schema.Resource {
 	return &schema.Resource{
 		Description: "Resource to manage Horizon Desktop Pools.",
 

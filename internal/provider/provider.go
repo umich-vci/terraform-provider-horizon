@@ -58,7 +58,7 @@ func New(version string) func() *schema.Provider {
 			},
 			DataSourcesMap: map[string]*schema.Resource{},
 			ResourcesMap: map[string]*schema.Resource{
-				"horizon_farm": resourceFarm(),
+				"horizon_desktop_pool_automated": resourceDesktopPoolAutomated(),
 			},
 		}
 
