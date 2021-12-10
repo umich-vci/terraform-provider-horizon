@@ -2,7 +2,9 @@ package provider
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -55,6 +57,12 @@ func New(version string) func() *schema.Provider {
 					DefaultFunc: schema.EnvDefaultFunc("HORIZON_HOST", nil),
 					Description: "This is the hostname or IP address of the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_HOST`.",
 				},
+				"ssl_verify": {
+					Type:        schema.TypeBool,
+					Optional:    true,
+					Default:     true,
+					Description: "Verify the SSL certificate of the VMware Horizon server?",
+				},
 			},
 			DataSourcesMap: map[string]*schema.Resource{},
 			ResourcesMap: map[string]*schema.Resource{
@@ -80,10 +88,19 @@ func configure(version string, p *schema.Provider) func(context.Context, *schema
 		password := d.Get("password").(string)
 		domain := d.Get("domain").(string)
 		host := d.Get("horizon_host").(string)
+		sslVerify := d.Get("ssl_verify").(bool)
 
 		config := gohorizon.NewConfiguration()
 		config.UserAgent = userAgent
 		config.Host = host
+		config.Scheme = "https"
+
+		if !sslVerify {
+			tr := &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			}
+			config.HTTPClient = &http.Client{Transport: tr}
+		}
 
 		client := gohorizon.NewAPIClient(config)
 
