@@ -545,6 +545,8 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 	enableProvisioning := d.Get("enable_provisioning").(bool)
 	stopOnErr := d.Get("stop_provisioning_on_error").(bool)
 	namingMethod := d.Get("naming_method").(string)
+	vCenterID := d.Get("vcenter_id").(string)
+	agID := d.Get("access_group_id").(string)
 
 	//access_group_id
 
@@ -554,6 +556,8 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 	body.EnableProvisioning = &enableProvisioning
 	body.StopProvisioningOnError = &stopOnErr
 	body.NamingMethod = &namingMethod
+	body.VcenterId = &vCenterID
+	body.AccessGroupId = &agID
 
 	autoAssign := false
 	if aa, ok := d.GetOk("automatic_user_assignment"); ok {
@@ -587,11 +591,11 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 			maxMachine := int32(patternNamingRaw["max_number_of_machines"].(int))
 			patternNaming.MaxNumberOfMachines = &maxMachine
 
-			if min, ok := patternNamingRaw["min_number_of_machines"]; ok {
+			if patternNamingRaw["min_number_of_machines"].(int) > 0 {
 				if namingPattern == "UP_FRONT" {
 					return diag.Errorf("min_number_of_machines can not be set when naming_pattern is \"UP_FRONT\"")
 				}
-				minMachine := int32(min.(int))
+				minMachine := int32(patternNamingRaw["min_number_of_machines"].(int))
 				patternNaming.MinNumberOfMachines = &minMachine
 			}
 
