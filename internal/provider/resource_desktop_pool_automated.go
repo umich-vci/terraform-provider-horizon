@@ -425,7 +425,6 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 										Description: "Id of the datastore.",
 										Type:        schema.TypeBool,
 										Optional:    true,
-										Default:     false,
 									},
 								},
 							},
@@ -434,12 +433,12 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 							Description: "With vSphere 5.x, virtual machines can be configured to use a space efficient disk format that supports reclamation of unused diskspace (such as deleted files). This option reclaims unused diskspace on each virtual machine. The operation is initiated when an estimate of used disk space exceeds the specified threshold.",
 							Type:        schema.TypeBool,
 							Optional:    true,
-							Default:     false,
 						},
 						"reclamation_threshold_mb": {
-							Description: "Initiate reclamation when unused space on virtual machine exceeds the threshold in MB.  This property is required if reclaim_vm_disk_space is set to true.",
-							Type:        schema.TypeInt,
-							Optional:    true,
+							Description:  "Initiate reclamation when unused space on virtual machine exceeds the threshold in MB.  This property is required if reclaim_vm_disk_space is set to true.",
+							Type:         schema.TypeInt,
+							Optional:     true,
+							ValidateFunc: validation.IntAtLeast(1),
 						},
 						"replica_disk_datastore_id": {
 							Description: "Datastore to store replica disks for instant clone machines. This property is required if use_separate_datastores_replica_and_os_disks is set to true.",
@@ -684,6 +683,8 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 		return diag.Errorf("invalid source - should not be possible to get here")
 	}
 
+	body.ProvisioningSettings = provSettings
+
 	clonePrepRaw, clonePrepDec := d.GetOk("clone_prep_settings")
 	sysPrepRaw, sysPrepDec := d.GetOk("sys_prep_settings")
 	custSettings := gohorizon.NewDesktopPoolCustomizationSettingsCreateSpec(custType)
@@ -747,7 +748,51 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 		return custErr
 	}
 
-	body.ProvisioningSettings = provSettings
+	storSetRaw := d.Get("storage_settings").([]interface{})[0].(map[string]interface{})
+	datastoresRaw := storSetRaw["datastores"].(*schema.Set).List()
+	datastores := []gohorizon.DesktopPoolDatastoreSettingsCreateSpec{}
+	for _, raw := range datastoresRaw {
+		rawds := raw.(map[string]interface{})
+		datastore := gohorizon.NewDesktopPoolDatastoreSettingsCreateSpec(rawds["datastore_id"].(string))
+		sdrs := rawds["sdrs_cluster"].(bool)
+		if source == "VIRTUAL_CENTER" {
+			datastore.SdrsCluster = &sdrs
+		} else {
+			if sdrs {
+				return diag.Errorf("sdrs_cluster cannot be configured for source type other than VIRTUAL_CENTER")
+			}
+		}
+		datastores = append(datastores, *datastore)
+	}
+	reclaim := storSetRaw["reclaim_vm_disk_space"].(bool)
+	reclaimThresh := int64(storSetRaw["reclamation_threshold_mb"].(int))
+	rddID := storSetRaw["replica_disk_datastore_id"].(string)
+	separateds := storSetRaw["use_separate_datastores_replica_and_os_disks"].(bool)
+	vSAN := storSetRaw["use_vsan"].(bool)
+
+	storageSettings := gohorizon.NewDesktopPoolStorageSettingsCreateSpec(datastores)
+
+	storageSettings.UseVsan = &vSAN
+
+	if rddID != "" {
+		storageSettings.ReplicaDiskDatastoreId = &rddID
+		storageSettings.UseSeparateDatastoresReplicaAndOsDisks = &separateds
+	} else {
+		if separateds {
+			return diag.Errorf("use_separate_datastores_replica_and_os_disks cannot be set if replica_disk_datastore_id is not specified")
+		}
+	}
+
+	if reclaim {
+		storageSettings.ReclaimVmDiskSpace = &reclaim
+		storageSettings.ReclamationThresholdMb = &reclaimThresh
+	} else {
+		if reclaimThresh > 0 {
+			return diag.Errorf("reclamation_threshold_mb should not be set if reclaim_vm_disk_space is false")
+		}
+	}
+
+	body.StorageSettings = storageSettings
 
 	resp, err := client.InventoryApi.CreateDesktopPool(ctx).Body(*body).Execute()
 	if err != nil {
