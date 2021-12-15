@@ -425,6 +425,7 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 										Description: "Id of the datastore.",
 										Type:        schema.TypeBool,
 										Optional:    true,
+										Default:     false,
 									},
 								},
 							},
@@ -799,7 +800,20 @@ func resourceDesktopPoolCreate(ctx context.Context, d *schema.ResourceData, meta
 		return returnResponseErr(resp, err)
 	}
 
-	return resourceDesktopPoolRead(ctx, d, meta)
+	//kinda hacky, but can't figure out anything better
+	//get all of the pools
+	pools, _, err := client.InventoryApi.ListDesktopPoolsV5(ctx).Execute()
+	if err != nil {
+		return returnResponseErr(resp, err)
+	}
+	//find the pool with the matching name (since they are unique) and assume that has the ID
+	for _, pool := range pools {
+		if *pool.Name == name {
+			d.SetId(*pool.Id)
+			return resourceDesktopPoolRead(ctx, d, meta)
+		}
+	}
+	return diag.Errorf("could not find ID of pool that was created")
 }
 
 func resourceDesktopPoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
