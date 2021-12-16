@@ -64,7 +64,9 @@ func New(version string) func() *schema.Provider {
 					Description: "Verify the SSL certificate of the VMware Horizon server?",
 				},
 			},
-			DataSourcesMap: map[string]*schema.Resource{},
+			DataSourcesMap: map[string]*schema.Resource{
+				"horizon_vcenter_server": dataSourcevCenter(),
+			},
 			ResourcesMap: map[string]*schema.Resource{
 				"horizon_desktop_pool_automated": resourceDesktopPoolAutomated(),
 			},
