@@ -65,7 +65,8 @@ func New(version string) func() *schema.Provider {
 				},
 			},
 			DataSourcesMap: map[string]*schema.Resource{
-				"horizon_vcenter_server": dataSourcevCenter(),
+				"horizon_local_access_group": dataSourceLocalAccessGroup(),
+				"horizon_vcenter_server":     dataSourcevCenter(),
 			},
 			ResourcesMap: map[string]*schema.Resource{
 				"horizon_desktop_pool_automated": resourceDesktopPoolAutomated(),
