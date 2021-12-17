@@ -65,6 +65,7 @@ func New(version string) func() *schema.Provider {
 				},
 			},
 			DataSourcesMap: map[string]*schema.Resource{
+				"horizon_active_directory_domain":      dataSourceActiveDirectoryDomain(),
 				"horizon_instant_clone_domain_account": dataSourceInstantCloneDomainAccount(),
 				"horizon_local_access_group":           dataSourceLocalAccessGroup(),
 				"horizon_vcenter_server":               dataSourcevCenter(),
