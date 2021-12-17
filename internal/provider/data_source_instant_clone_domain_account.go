@@ -31,21 +31,20 @@ func dataSourceInstantCloneDomainAccount() *schema.Resource {
 func dataSourceInstantCloneDomainAccountRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*apiClient).Client
 
-	name := d.Get("name").(string)
+	username := d.Get("username").(string)
+	domainSID := d.Get("ad_domain_id").(string)
 
-	groups, _, err := client.ConfigApi.ListLocalAccessGroups(ctx).Execute()
+	accounts, _, err := client.ConfigApi.ListICDomainAccounts(ctx).Execute()
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	for _, group := range groups {
-		if *group.Name == name {
-			d.Set("deletable", group.Deletable)
-			d.Set("description", group.Description)
-			d.SetId(*group.Id)
+	for _, account := range accounts {
+		if *account.Username == username && *account.AdDomainId == domainSID {
+			d.SetId(*account.Id)
 			return nil
 		}
 	}
 
-	return diag.Errorf("Could not find Local Access Group with name %s", name)
+	return diag.Errorf("Could not find Instant Clone Domain Account with username %s and ad_domain_id %s", username, domainSID)
 }
