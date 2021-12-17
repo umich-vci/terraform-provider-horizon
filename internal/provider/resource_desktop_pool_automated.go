@@ -19,6 +19,10 @@ func resourceDesktopPoolAutomated() *schema.Resource {
 		UpdateContext: resourceDesktopPoolUpdate,
 		DeleteContext: resourceDesktopPoolDelete,
 
+		Importer: &schema.ResourceImporter{
+			StateContext: schema.ImportStatePassthroughContext,
+		},
+
 		Schema: map[string]*schema.Schema{
 			"access_group_id": {
 				Description: "Access groups can organize the entities such as desktop pools in the organization. They can also be used for delegated administration.",
