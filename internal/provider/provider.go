@@ -73,6 +73,7 @@ func New(version string) func() *schema.Provider {
 				"horizon_vcenter_datastore":                     dataSourcevCenterDatastore(),
 				"horizon_vcenter_host_or_cluster":               dataSourcevCenterHostOrCluster(),
 				"horizon_vcenter_server":                        dataSourcevCenter(),
+				"horizon_vcenter_vm_folder":                     dataSourcevCenterVMFolder(),
 			},
 			ResourcesMap: map[string]*schema.Resource{
 				"horizon_desktop_pool_automated":    resourceDesktopPoolAutomated(),
