@@ -49,7 +49,7 @@ func New(version string) func() *schema.Provider {
 					Type:        schema.TypeString,
 					Required:    true,
 					DefaultFunc: schema.EnvDefaultFunc("HORIZON_DOMAIN", nil),
-					Description: "This is the AD Domain of the `username` used to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_USERNAME`.",
+					Description: "This is the AD Domain of the `username` used to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_DOMAIN`.",
 				},
 				"horizon_host": {
 					Type:        schema.TypeString,
