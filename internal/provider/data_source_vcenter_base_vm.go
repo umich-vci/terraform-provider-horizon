@@ -9,7 +9,7 @@ import (
 
 func dataSourcevCenterBaseVM() *schema.Resource {
 	return &schema.Resource{
-		Description: "Data source to find the ID of a vCenter Datacenter.",
+		Description: "Data source for base vm information.",
 
 		ReadContext: dataSourcevCenterBaseVMRead,
 
@@ -35,7 +35,7 @@ func dataSourcevCenterBaseVM() *schema.Resource {
 				Optional:    true,
 			},
 			"incompatible_reasons": {
-				Description: "Reasons that may preclude this Datastore from being used in desktop pool/farm.",
+				Description: "Reasons that may preclude this BaseVM from having its snapshots used in linked or instant clone desktop or farm creation.",
 				Type:        schema.TypeSet,
 				Computed:    true,
 				Elem: &schema.Schema{

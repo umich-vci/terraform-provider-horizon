@@ -9,7 +9,7 @@ import (
 
 func dataSourcevCenterBaseVMSnapshot() *schema.Resource {
 	return &schema.Resource{
-		Description: "Lists all the VM snapshots from the vCenter for a given VM.",
+		Description: "Data source for snapshot information for a base VM.",
 
 		ReadContext: dataSourcevCenterBaseVMSnapshotRead,
 

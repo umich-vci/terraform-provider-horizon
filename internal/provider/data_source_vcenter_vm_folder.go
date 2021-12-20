@@ -29,16 +29,8 @@ func dataSourcevCenterVMFolder() *schema.Resource {
 				Type:        schema.TypeString,
 				Required:    true,
 			},
-			// "children": {
-			// 	Description: "Child nodes of the VM folder.",
-			// 	Type:        schema.TypeList,
-			// 	Computed:    true,
-			// 	Elem: &schema.Schema{
-			// 		Type: schema.TypeString,
-			// 	},
-			// },
 			"incompatible_reasons": {
-				Description: "Reasons that may preclude this Datastore from being used in desktop pool/farm.",
+				Description: "Reasons that may preclude this VM folder from being used in desktop pool or farm.",
 				Type:        schema.TypeSet,
 				Computed:    true,
 				Elem: &schema.Schema{
@@ -47,7 +39,7 @@ func dataSourcevCenterVMFolder() *schema.Resource {
 			},
 			"name": {
 				Description: "VM folder name.",
-				Type:        schema.TypeBool,
+				Type:        schema.TypeString,
 				Computed:    true,
 			},
 			"type": {
@@ -74,7 +66,6 @@ func dataSourcevCenterVMFolderRead(ctx context.Context, d *schema.ResourceData, 
 	for _, vmFolder := range vmFolders {
 		if *vmFolder.Path == path {
 			d.SetId(*vmFolder.Id)
-			// d.Set("children", vmFolder.Children)
 			d.Set("incompatible_reasons", vmFolder.IncompatibleReasons)
 			d.Set("name", vmFolder.Name)
 			d.Set("type", vmFolder.Type)

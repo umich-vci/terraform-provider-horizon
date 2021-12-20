@@ -30,7 +30,7 @@ func dataSourcevCenterResourcePool() *schema.Resource {
 				Required:    true,
 			},
 			"path": {
-				Description: "Host or cluster path.",
+				Description: "Resource pool path.",
 				Type:        schema.TypeString,
 				Computed:    true,
 			},
