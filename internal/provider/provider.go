@@ -74,6 +74,7 @@ func New(version string) func() *schema.Provider {
 				"horizon_vcenter_datacenter":                    dataSourcevCenterDatacenter(),
 				"horizon_vcenter_datastore":                     dataSourcevCenterDatastore(),
 				"horizon_vcenter_host_or_cluster":               dataSourcevCenterHostOrCluster(),
+				"horizon_vcenter_resource_pool":                 dataSourcevCenterResourcePool(),
 				"horizon_vcenter_server":                        dataSourcevCenter(),
 				"horizon_vcenter_vm_folder":                     dataSourcevCenterVMFolder(),
 			},
