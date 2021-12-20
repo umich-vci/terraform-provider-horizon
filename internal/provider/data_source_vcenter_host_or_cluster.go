@@ -37,8 +37,11 @@ func dataSourcevCenterHostOrCluster() *schema.Resource {
 			},
 			"incompatible_reasons": {
 				Description: "Reasons that may preclude this Host Or Cluster from being used in desktop pool creation.",
-				Type:        schema.TypeString,
+				Type:        schema.TypeSet,
 				Computed:    true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
 			},
 			"path": {
 				Description: "Host or cluster path.",

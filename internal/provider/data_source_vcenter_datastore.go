@@ -56,8 +56,11 @@ func dataSourcevCenterDatastore() *schema.Resource {
 			},
 			"incompatible_reasons": {
 				Description: "Reasons that may preclude this Datastore from being used in desktop pool/farm.",
-				Type:        schema.TypeString,
+				Type:        schema.TypeSet,
 				Computed:    true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
 			},
 			"local_datastore": {
 				Description: "Indicates if this datastore is local to a single host.",
