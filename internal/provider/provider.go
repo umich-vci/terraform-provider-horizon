@@ -70,6 +70,7 @@ func New(version string) func() *schema.Provider {
 				"horizon_instant_clone_domain_account":          dataSourceInstantCloneDomainAccount(),
 				"horizon_local_access_group":                    dataSourceLocalAccessGroup(),
 				"horizon_vcenter_datacenter":                    dataSourcevCenterDatacenter(),
+				"horizon_vcenter_datastore":                     dataSourcevCenterDatastore(),
 				"horizon_vcenter_host_or_cluster":               dataSourcevCenterHostOrCluster(),
 				"horizon_vcenter_server":                        dataSourcevCenter(),
 			},
