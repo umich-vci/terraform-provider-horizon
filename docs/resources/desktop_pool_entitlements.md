@@ -17,11 +17,11 @@ Resource for managing desktop pool entitlements in Horizon.
 
 ### Required
 
-- **ad_user_or_group_ids** (Set of String) List of ad-user-or-group SIDs for the entitlement operations on the given desktop pool.
-- **pool_id** (String) Unique ID representing the desktop pool.
+- `ad_user_or_group_ids` (Set of String) List of ad-user-or-group SIDs for the entitlement operations on the given desktop pool.
+- `pool_id` (String) Unique ID representing the desktop pool.
 
-### Optional
+### Read-Only
 
-- **id** (String) The ID of this resource.
+- `id` (String) The ID of this resource.
 
 

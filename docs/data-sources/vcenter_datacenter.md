@@ -17,15 +17,12 @@ Data source to find the ID of a vCenter Datacenter.
 
 ### Required
 
-- **name** (String) Name of the datacenter.
-- **vcenter_id** (String) Virtual Center ID
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `name` (String) Name of the datacenter.
+- `vcenter_id` (String) Virtual Center ID
 
 ### Read-Only
 
-- **path** (String) Datacenter path.
+- `id` (String) The ID of this resource.
+- `path` (String) Datacenter path.
 
 

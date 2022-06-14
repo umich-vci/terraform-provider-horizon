@@ -17,31 +17,28 @@ Data source for reading information about an Active Directory domain from Horizo
 
 ### Required
 
-- **dns_name** (String) DNS name of the AD Domain.
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `dns_name` (String) DNS name of the AD Domain.
 
 ### Read-Only
 
-- **ad_domain_auto_discovery** (Boolean) Auto discovers domain controllers. Auto discovery, AD domain controllers and preferred site name are mutually exclusive. Only one of them can be defined at a time. Default value is true.
-- **ad_domain_context** (String) Active directory domain Context.
-- **ad_domain_controllers** (Set of String) One or more AD domain controllers. Auto discovery, AD domain controllers and preferred site name are mutually exclusive. Only one of them can be defined at a time.
-- **ad_domain_preferred_site** (String) ADDomain preferred domain site. Auto discovery, AD domain controllers and preferred site name are mutually exclusive. Only one of them can be defined at a time.
-- **auxiliary_accounts** (Set of Object) Auxiliary service accounts information of untrusted domain. (see [below for nested schema](#nestedatt--auxiliary_accounts))
-- **domain_type** (String) AD Domain Type. CONNECTION_SERVER_DOMAIN: The domain having trust with connection server domain. NO_TRUST_DOMAIN: The domain not having any trust with connection server domain.
-- **netbios_name** (String) NetBIOS name of the AD Domain.
-- **port** (Number) Port of the server to connect to.
-- **primary_account_password** (String, Sensitive) Information related to untrusted Domain service accounts. Service account user password.
-- **primary_account_username** (String) Information related to untrusted Domain service accounts. Service account username.
+- `ad_domain_auto_discovery` (Boolean) Auto discovers domain controllers. Auto discovery, AD domain controllers and preferred site name are mutually exclusive. Only one of them can be defined at a time. Default value is true.
+- `ad_domain_context` (String) Active directory domain Context.
+- `ad_domain_controllers` (Set of String) One or more AD domain controllers. Auto discovery, AD domain controllers and preferred site name are mutually exclusive. Only one of them can be defined at a time.
+- `ad_domain_preferred_site` (String) ADDomain preferred domain site. Auto discovery, AD domain controllers and preferred site name are mutually exclusive. Only one of them can be defined at a time.
+- `auxiliary_accounts` (Set of Object) Auxiliary service accounts information of untrusted domain. (see [below for nested schema](#nestedatt--auxiliary_accounts))
+- `domain_type` (String) AD Domain Type. CONNECTION_SERVER_DOMAIN: The domain having trust with connection server domain. NO_TRUST_DOMAIN: The domain not having any trust with connection server domain.
+- `id` (String) The ID of this resource.
+- `netbios_name` (String) NetBIOS name of the AD Domain.
+- `port` (Number) Port of the server to connect to.
+- `primary_account_password` (String, Sensitive) Information related to untrusted Domain service accounts. Service account user password.
+- `primary_account_username` (String) Information related to untrusted Domain service accounts. Service account username.
 
 <a id="nestedatt--auxiliary_accounts"></a>
 ### Nested Schema for `auxiliary_accounts`
 
 Read-Only:
 
-- **id** (String)
-- **username** (String)
+- `id` (String)
+- `username` (String)
 
 

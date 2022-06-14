@@ -17,18 +17,15 @@ Data source to find the ID of a vCenter Datacenter.
 
 ### Required
 
-- **datacenter_id** (String) Datacenter ID
-- **path** (String) VM folder path.
-- **vcenter_id** (String) Virtual Center ID
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `datacenter_id` (String) Datacenter ID
+- `path` (String) VM folder path.
+- `vcenter_id` (String) Virtual Center ID
 
 ### Read-Only
 
-- **incompatible_reasons** (Set of String) Reasons that may preclude this VM folder from being used in desktop pool or farm.
-- **name** (String) VM folder name.
-- **type** (String) VM folder type. DATACENTER: A datacenter that serves as a folder suitable for use in desktop pool/farm. FOLDER: A regular folder suitable for use in desktop pool/farm. OTHER: Other folder type that cannot be used in desktop pool/farm.
+- `id` (String) The ID of this resource.
+- `incompatible_reasons` (Set of String) Reasons that may preclude this VM folder from being used in desktop pool or farm.
+- `name` (String) VM folder name.
+- `type` (String) VM folder type. DATACENTER: A datacenter that serves as a folder suitable for use in desktop pool/farm. FOLDER: A regular folder suitable for use in desktop pool/farm. OTHER: Other folder type that cannot be used in desktop pool/farm.
 
 

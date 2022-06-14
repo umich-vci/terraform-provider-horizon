@@ -17,11 +17,11 @@ Data source for reading information about an instant clone domain account from H
 
 ### Required
 
-- **ad_domain_id** (String) SID of the AD Domain that this account user belongs to.
-- **username** (String) User name of the account.
+- `ad_domain_id` (String) SID of the AD Domain that this account user belongs to.
+- `username` (String) User name of the account.
 
-### Optional
+### Read-Only
 
-- **id** (String) The ID of this resource.
+- `id` (String) The ID of this resource.
 
 

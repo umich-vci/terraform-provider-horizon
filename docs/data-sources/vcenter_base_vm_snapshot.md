@@ -17,28 +17,25 @@ Data source for snapshot information for a base VM.
 
 ### Required
 
-- **base_vm_id** (String) VM ID
-- **path** (String) VM snapshot path.
-- **vcenter_id** (String) Virtual Center ID
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `base_vm_id` (String) VM ID
+- `path` (String) VM snapshot path.
+- `vcenter_id` (String) Virtual Center ID
 
 ### Read-Only
 
-- **created_timestamp** (Number) Epoch time in milli seconds, when the VM snapshot was created.
-- **description** (String) Description of the VM snapshot.
-- **disk_size_mb** (Number) Sum of capacities of all the virtual disks in the VM snapshot, in MB.
-- **hardware_version** (Number) VM snapshot hardware version
-- **incompatible_reasons** (Set of String) Reasons that may preclude this VM snapshot from being used in linked/instant clone desktop pool or farm creation.
-- **max_number_of_monitors** (Number) Maximum number of monitors set in SVGA settings for the VM snapshot in vCenter.
-- **max_resolution_of_any_one_monitor** (String) Maximum resolution of any one monitor set in SVGA settings for the VM snapshot in vCenter.
-- **memory_mb** (Number) The physical memory size of VM snapshot, in MB
-- **memory_reservation_mb** (Number) Amount of memory that is guaranteed available to the virtual machine, in MB.
-- **name** (String) VM snapshot name.
-- **renderer3d** (String) Indicate how the virtual video device for the VM snapshot renders 3D graphics. Will be set only if VM snapshot supports 3D functions. MANAGE_BY_VSPHERE_CLIENT: 3D rendering managed by vSphere Client. AUTOMATIC: 3D rendering is automatic. SOFTWARE: 3D rendering is software dependent. The software renderer is supported (at minimum) on virtual hardware version 8 in a vSphere 5.0 environment. HARDWARE: 3D rendering is hardware dependent. The hardware-based renderer is supported (at minimum) on virtual hardware version 9 in a vSphere 5.1 environment. DISABLED: 3D rendering is disabled.
-- **total_video_memory_mb** (Number) Total video memory in MB set in SVGA settings for the VM snapshot in vCenter.
-- **vgpu_type** (String) NVIDIA GRID vGPU type configured on this VM snapshot.
+- `created_timestamp` (Number) Epoch time in milli seconds, when the VM snapshot was created.
+- `description` (String) Description of the VM snapshot.
+- `disk_size_mb` (Number) Sum of capacities of all the virtual disks in the VM snapshot, in MB.
+- `hardware_version` (Number) VM snapshot hardware version
+- `id` (String) The ID of this resource.
+- `incompatible_reasons` (Set of String) Reasons that may preclude this VM snapshot from being used in linked/instant clone desktop pool or farm creation.
+- `max_number_of_monitors` (Number) Maximum number of monitors set in SVGA settings for the VM snapshot in vCenter.
+- `max_resolution_of_any_one_monitor` (String) Maximum resolution of any one monitor set in SVGA settings for the VM snapshot in vCenter.
+- `memory_mb` (Number) The physical memory size of VM snapshot, in MB
+- `memory_reservation_mb` (Number) Amount of memory that is guaranteed available to the virtual machine, in MB.
+- `name` (String) VM snapshot name.
+- `renderer3d` (String) Indicate how the virtual video device for the VM snapshot renders 3D graphics. Will be set only if VM snapshot supports 3D functions. MANAGE_BY_VSPHERE_CLIENT: 3D rendering managed by vSphere Client. AUTOMATIC: 3D rendering is automatic. SOFTWARE: 3D rendering is software dependent. The software renderer is supported (at minimum) on virtual hardware version 8 in a vSphere 5.0 environment. HARDWARE: 3D rendering is hardware dependent. The hardware-based renderer is supported (at minimum) on virtual hardware version 9 in a vSphere 5.1 environment. DISABLED: 3D rendering is disabled.
+- `total_video_memory_mb` (Number) Total video memory in MB set in SVGA settings for the VM snapshot in vCenter.
+- `vgpu_type` (String) NVIDIA GRID vGPU type configured on this VM snapshot.
 
 

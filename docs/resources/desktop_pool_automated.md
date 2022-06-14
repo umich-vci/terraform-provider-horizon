@@ -17,67 +17,67 @@ Resource to manage Horizon Desktop Pools.
 
 ### Required
 
-- **access_group_id** (String) Access groups can organize the entities such as desktop pools in the organization. They can also be used for delegated administration.
-- **customization_type** (String) Type of customization to use. NONE: Applicable To: Full clone desktop pools. No customization. SYS_PREP: Applicable To: Full clone desktop pools. Microsoft Sysprep is a tool to deploy the configured operating system installation from a base image. The machine can then be customized based on an answer script. Sysprep can modify a larger number of configurable parameters than QuickPrep. CLONE_PREP: Applicable To: Instant clone desktop pools. ClonePrep is a VMware system tool executed by Instant Clone Engine during a instant clone machine deployment. ClonePrep personalizes each machine created from the Master image.
-- **name** (String) Name of the Desktop Pool. This property must contain only alphanumerics, underscores, and dashes.
-- **naming_method** (String) Naming method for the desktop pool.
-- **provisioning_settings** (Block List, Min: 1, Max: 1) Virtual center provisioning settings for Automated desktop pool. (see [below for nested schema](#nestedblock--provisioning_settings))
-- **source** (String) Source of the Machines in this Desktop Pool.
-- **storage_settings** (Block List, Min: 1, Max: 1) Virtual center storage settings for Automated desktop pool. (see [below for nested schema](#nestedblock--storage_settings))
-- **user_assignment** (String) User assignment scheme. DEDICATED: With dedicated assignment, a user returns to the same machine at each session. FLOATING: With floating assignment, a user may return to one of the available machines for the next session.
-- **vcenter_id** (String) ID of the virtual center server.
+- `access_group_id` (String) Access groups can organize the entities such as desktop pools in the organization. They can also be used for delegated administration.
+- `customization_type` (String) Type of customization to use. NONE: Applicable To: Full clone desktop pools. No customization. SYS_PREP: Applicable To: Full clone desktop pools. Microsoft Sysprep is a tool to deploy the configured operating system installation from a base image. The machine can then be customized based on an answer script. Sysprep can modify a larger number of configurable parameters than QuickPrep. CLONE_PREP: Applicable To: Instant clone desktop pools. ClonePrep is a VMware system tool executed by Instant Clone Engine during a instant clone machine deployment. ClonePrep personalizes each machine created from the Master image.
+- `name` (String) Name of the Desktop Pool. This property must contain only alphanumerics, underscores, and dashes.
+- `naming_method` (String) Naming method for the desktop pool.
+- `provisioning_settings` (Block List, Min: 1, Max: 1) Virtual center provisioning settings for Automated desktop pool. (see [below for nested schema](#nestedblock--provisioning_settings))
+- `source` (String) Source of the Machines in this Desktop Pool.
+- `storage_settings` (Block List, Min: 1, Max: 1) Virtual center storage settings for Automated desktop pool. (see [below for nested schema](#nestedblock--storage_settings))
+- `user_assignment` (String) User assignment scheme. DEDICATED: With dedicated assignment, a user returns to the same machine at each session. FLOATING: With floating assignment, a user may return to one of the available machines for the next session.
+- `vcenter_id` (String) ID of the virtual center server.
 
 ### Optional
 
-- **allow_multiple_user_assignments** (Boolean) Only applies to automated desktop pools with manual user assignment. Whether assignment of multiple users to a single machine is allowed. If this is true then automatic_user_assignment should be false.
-- **automatic_user_assignment** (Boolean) Automatic assignment of a user the first time they access the machine. This property is applicable if user_assignment is set to DEDICATED with default value as true.
-- **category_folder_name** (String) Name of the category folder in the user's OS containing a shortcut to the desktop pool. Will be unset if the desktop does not belong to a category.This property defines valid folder names with a max length of 64 characters and up to 4 subdirectory levels.The subdirectories can be specified using a backslash, e.g. (dir1\dir2\dir3\dir4). Folder names can't start orend with a backslash nor can there be 2 or more backslashes together. Combinations such as(\dir1, dir1\dir2, dir1\\dir2, dir1\\\dir2) are invalid. The windows reserved keywords(CON, PRN, NUL, AUX, COM1 - COM9, LPT1 - LPT9 etc.) are not allowed in subdirectory names.
-- **clone_prep_settings** (Block List, Max: 1) ClonePrep is a VMware system tool executed by Instant Clone Engine during a instant clone machine deployment. ClonePrep personalizes each machine created from the Master image. (see [below for nested schema](#nestedblock--clone_prep_settings))
-- **cloud_assigned** (Boolean) Indicates whether this desktop is assigned to a workspace in Horizon Cloud Services. This can be set to true from cloud session only and only when cloud_managed is set to true. Defaults to `false`.
-- **cloud_managed** (Boolean) Indicates whether this desktop is managed by Horizon Cloud Services. This can be set to false only when cloud_assigned is set to false. Default value is false. This property cannot be set to true, if any of the conditions are satisfied: user is provided. enabled is false. supported_session_type is not DESKTOP. global_entitlement is set. user_assignment is DEDICATED and automatic_user_assignment is false. Local entitlements are configured. Any of the machines in the pool have users assigned. cs_restriction_tags is not set. Desktop pool type is MANUAL. Defaults to `false`.
-- **cs_restriction_tags** (Set of String) List of Connection server restriction tags to which the access to the desktop pool is restricted. If this property is not set it indicates that desktop pool can be accessed from any connection server.
-- **description** (String) Description of the desktop pool.
-- **display_assigned_machine_name** (Boolean) Applicable To: Dedicated desktop pools with default value as false. Indicates whether users should see the hostname of the machine assigned to them instead of display_name when they connect using Horizon Client. If no machine is assigned to the user then "display_name (No machine assigned)" will be displayed in the client. Defaults to `false`.
-- **display_machine_alias** (Boolean) Applicable To: Dedicated desktop pools with default value as false. If no machine is assigned to the user then "displayName No machine assigned)" will be displayed in the Horizon client. If both display_assigned_machine_name and this property is set to true, machine alias of the assigned machine is displayed if the user has machine alias set. Otherwise hostname will be displayed. Defaults to `false`.
-- **display_name** (String) Display name of the desktop pool. If the display name is left blank, it defaults to name.
-- **display_protocol_settings** (Block List, Max: 1) Display protocol settings. (see [below for nested schema](#nestedblock--display_protocol_settings))
-- **do_not_power_on_vms_after_creation** (Boolean) Indicates whether to power on VMs after creation. This is the settings when customization will be done manually. This property is required if customization_type is set to NONE with default value as false. Defaults to `false`.
-- **enable_client_restrictions** (Boolean) Client restrictions to be applied to the desktop pool. Defaults to `false`.
-- **enable_provisioning** (Boolean) Indicates whether provisioning is enabled. Defaults to `true`.
-- **enabled** (Boolean) Indicates whether the desktop pool is enabled for brokering. Defaults to `true`.
-- **id** (String) The ID of this resource.
-- **pattern_naming_settings** (Block List, Max: 1) Naming pattern settings for Automated desktop pool. (see [below for nested schema](#nestedblock--pattern_naming_settings))
-- **session_type** (String) Supported session types for this desktop pool. If this property is set to APPLICATION then this desktop pool can be used for application pool creation. This will be useful when the machines in the pool support application remoting. Defaults to `DESKTOP`.
-- **shortcut_locations_v2** (Set of String) Locations of the category folder in the user's OS containing a shortcut to the desktop pool. This is required if the category_folder_name is set.
-- **stop_provisioning_on_error** (Boolean) Disable provisioning on the pool if there is a provisioning error. Defaults to `true`.
-- **sys_prep_settings** (Block List, Max: 1) Microsoft Sysprep is a tool to deploy the configured operating system installation from a base image. The machine can then be customized based on an answer script. Sysprep can modify a larger number of configurable parameters than QuickPrep. (see [below for nested schema](#nestedblock--sys_prep_settings))
-- **transparent_page_sharing_scope** (String) Transparent page sharing scope for this Desktop Pool. VM: Inter-VM page sharing is not permitted. DESKTOP_POOL: Inter-VM page sharing among VMs belonging to the same Desktop pool is permitted. POD: Inter-VM page sharing among VMs belonging to the same Pod is permitted. GLOBAL: Inter-VM page sharing among all VMs on the same host is permitted. Defaults to `VM`.
-- **view_storage_accelerator_settings** (Block List, Max: 1) View Storage Accelerator settings for Managed desktop pool. (see [below for nested schema](#nestedblock--view_storage_accelerator_settings))
+- `allow_multiple_user_assignments` (Boolean) Only applies to automated desktop pools with manual user assignment. Whether assignment of multiple users to a single machine is allowed. If this is true then automatic_user_assignment should be false.
+- `automatic_user_assignment` (Boolean) Automatic assignment of a user the first time they access the machine. This property is applicable if user_assignment is set to DEDICATED with default value as true.
+- `category_folder_name` (String) Name of the category folder in the user's OS containing a shortcut to the desktop pool. Will be unset if the desktop does not belong to a category.This property defines valid folder names with a max length of 64 characters and up to 4 subdirectory levels.The subdirectories can be specified using a backslash, e.g. (dir1\dir2\dir3\dir4). Folder names can't start orend with a backslash nor can there be 2 or more backslashes together. Combinations such as(\dir1, dir1\dir2, dir1\\dir2, dir1\\\dir2) are invalid. The windows reserved keywords(CON, PRN, NUL, AUX, COM1 - COM9, LPT1 - LPT9 etc.) are not allowed in subdirectory names.
+- `clone_prep_settings` (Block List, Max: 1) ClonePrep is a VMware system tool executed by Instant Clone Engine during a instant clone machine deployment. ClonePrep personalizes each machine created from the Master image. (see [below for nested schema](#nestedblock--clone_prep_settings))
+- `cloud_assigned` (Boolean) Indicates whether this desktop is assigned to a workspace in Horizon Cloud Services. This can be set to true from cloud session only and only when cloud_managed is set to true. Defaults to `false`.
+- `cloud_managed` (Boolean) Indicates whether this desktop is managed by Horizon Cloud Services. This can be set to false only when cloud_assigned is set to false. Default value is false. This property cannot be set to true, if any of the conditions are satisfied: user is provided. enabled is false. supported_session_type is not DESKTOP. global_entitlement is set. user_assignment is DEDICATED and automatic_user_assignment is false. Local entitlements are configured. Any of the machines in the pool have users assigned. cs_restriction_tags is not set. Desktop pool type is MANUAL. Defaults to `false`.
+- `cs_restriction_tags` (Set of String) List of Connection server restriction tags to which the access to the desktop pool is restricted. If this property is not set it indicates that desktop pool can be accessed from any connection server.
+- `description` (String) Description of the desktop pool.
+- `display_assigned_machine_name` (Boolean) Applicable To: Dedicated desktop pools with default value as false. Indicates whether users should see the hostname of the machine assigned to them instead of display_name when they connect using Horizon Client. If no machine is assigned to the user then "display_name (No machine assigned)" will be displayed in the client. Defaults to `false`.
+- `display_machine_alias` (Boolean) Applicable To: Dedicated desktop pools with default value as false. If no machine is assigned to the user then "displayName No machine assigned)" will be displayed in the Horizon client. If both display_assigned_machine_name and this property is set to true, machine alias of the assigned machine is displayed if the user has machine alias set. Otherwise hostname will be displayed. Defaults to `false`.
+- `display_name` (String) Display name of the desktop pool. If the display name is left blank, it defaults to name.
+- `display_protocol_settings` (Block List, Max: 1) Display protocol settings. (see [below for nested schema](#nestedblock--display_protocol_settings))
+- `do_not_power_on_vms_after_creation` (Boolean) Indicates whether to power on VMs after creation. This is the settings when customization will be done manually. This property is required if customization_type is set to NONE with default value as false. Defaults to `false`.
+- `enable_client_restrictions` (Boolean) Client restrictions to be applied to the desktop pool. Defaults to `false`.
+- `enable_provisioning` (Boolean) Indicates whether provisioning is enabled. Defaults to `true`.
+- `enabled` (Boolean) Indicates whether the desktop pool is enabled for brokering. Defaults to `true`.
+- `pattern_naming_settings` (Block List, Max: 1) Naming pattern settings for Automated desktop pool. (see [below for nested schema](#nestedblock--pattern_naming_settings))
+- `session_type` (String) Supported session types for this desktop pool. If this property is set to APPLICATION then this desktop pool can be used for application pool creation. This will be useful when the machines in the pool support application remoting. Defaults to `DESKTOP`.
+- `shortcut_locations_v2` (Set of String) Locations of the category folder in the user's OS containing a shortcut to the desktop pool. This is required if the category_folder_name is set.
+- `stop_provisioning_on_error` (Boolean) Disable provisioning on the pool if there is a provisioning error. Defaults to `true`.
+- `sys_prep_settings` (Block List, Max: 1) Microsoft Sysprep is a tool to deploy the configured operating system installation from a base image. The machine can then be customized based on an answer script. Sysprep can modify a larger number of configurable parameters than QuickPrep. (see [below for nested schema](#nestedblock--sys_prep_settings))
+- `transparent_page_sharing_scope` (String) Transparent page sharing scope for this Desktop Pool. VM: Inter-VM page sharing is not permitted. DESKTOP_POOL: Inter-VM page sharing among VMs belonging to the same Desktop pool is permitted. POD: Inter-VM page sharing among VMs belonging to the same Pod is permitted. GLOBAL: Inter-VM page sharing among all VMs on the same host is permitted. Defaults to `VM`.
+- `view_storage_accelerator_settings` (Block List, Max: 1) View Storage Accelerator settings for Managed desktop pool. (see [below for nested schema](#nestedblock--view_storage_accelerator_settings))
 
 ### Read-Only
 
-- **delete_in_progress** (Boolean) Indicates whether the desktop pool is in the process of being deleted.
-- **image_source** (String) Source of image used in the desktop pool. Possible values are VIRTUAL_CENTER: Image was created in virtual center. IMAGE_CATALOG: Image was created in image catalog.
-- **user_group_count** (Number) Count of user or group entitlements present for the desktop pool.
+- `delete_in_progress` (Boolean) Indicates whether the desktop pool is in the process of being deleted.
+- `id` (String) The ID of this resource.
+- `image_source` (String) Source of image used in the desktop pool. Possible values are VIRTUAL_CENTER: Image was created in virtual center. IMAGE_CATALOG: Image was created in image catalog.
+- `user_group_count` (Number) Count of user or group entitlements present for the desktop pool.
 
 <a id="nestedblock--provisioning_settings"></a>
 ### Nested Schema for `provisioning_settings`
 
 Required:
 
-- **host_or_cluster_id** (String) Host or cluster where the machines are deployed in. For Instant clone desktops it can only be set to a cluster id.
-- **resource_pool_id** (String) Resource pool to deploy the machines.
-- **vm_folder_id** (String) VM folder where the machines are deployed to.
+- `host_or_cluster_id` (String) Host or cluster where the machines are deployed in. For Instant clone desktops it can only be set to a cluster id.
+- `resource_pool_id` (String) Resource pool to deploy the machines.
+- `vm_folder_id` (String) VM folder where the machines are deployed to.
 
 Optional:
 
-- **add_virtual_tpm** (Boolean) Indicates whether to add Virtual TPM device. Defaults to `false`.
-- **base_snapshot_id** (String) This property can be set only when source is set to INSTANT_CLONE, vm_template_id is unset and parent_vm_id is set.
-- **datacenter_id** (String) Datacenter within which the desktop pool is configured.
-- **im_stream_id** (String) This is required when vm_template_id, parent_vm_id and base_snapshot_id are not set.
-- **im_tag_id** (String) This is required when im_stream_id is set.
-- **parent_vm_id** (String) This property can be set only when source is set to INSTANT_CLONE.
-- **vm_template_id** (String) Applicable To: Full clone desktop pools. This is required if parent_vm_id and base_snapshot_id are not set.
+- `add_virtual_tpm` (Boolean) Indicates whether to add Virtual TPM device. Defaults to `false`.
+- `base_snapshot_id` (String) This property can be set only when source is set to INSTANT_CLONE, vm_template_id is unset and parent_vm_id is set.
+- `datacenter_id` (String) Datacenter within which the desktop pool is configured.
+- `im_stream_id` (String) This is required when vm_template_id, parent_vm_id and base_snapshot_id are not set.
+- `im_tag_id` (String) This is required when im_stream_id is set.
+- `parent_vm_id` (String) This property can be set only when source is set to INSTANT_CLONE.
+- `vm_template_id` (String) Applicable To: Full clone desktop pools. This is required if parent_vm_id and base_snapshot_id are not set.
 
 
 <a id="nestedblock--storage_settings"></a>
@@ -85,26 +85,26 @@ Optional:
 
 Required:
 
-- **datastores** (Block Set, Min: 1) Datastores to store the machine. (see [below for nested schema](#nestedblock--storage_settings--datastores))
+- `datastores` (Block Set, Min: 1) Datastores to store the machine. (see [below for nested schema](#nestedblock--storage_settings--datastores))
 
 Optional:
 
-- **reclaim_vm_disk_space** (Boolean) With vSphere 5.x, virtual machines can be configured to use a space efficient disk format that supports reclamation of unused diskspace (such as deleted files). This option reclaims unused diskspace on each virtual machine. The operation is initiated when an estimate of used disk space exceeds the specified threshold.
-- **reclamation_threshold_mb** (Number) Initiate reclamation when unused space on virtual machine exceeds the threshold in MB.  This property is required if reclaim_vm_disk_space is set to true.
-- **replica_disk_datastore_id** (String) Datastore to store replica disks for instant clone machines. This property is required if use_separate_datastores_replica_and_os_disks is set to true.
-- **use_separate_datastores_replica_and_os_disks** (Boolean) Indicates whether to use separate datastores for replica and OS disks. Defaults to `false`.
-- **use_vsan** (Boolean) Indicates whether to use vSphere vSAN. Defaults to `false`.
+- `reclaim_vm_disk_space` (Boolean) With vSphere 5.x, virtual machines can be configured to use a space efficient disk format that supports reclamation of unused diskspace (such as deleted files). This option reclaims unused diskspace on each virtual machine. The operation is initiated when an estimate of used disk space exceeds the specified threshold.
+- `reclamation_threshold_mb` (Number) Initiate reclamation when unused space on virtual machine exceeds the threshold in MB.  This property is required if reclaim_vm_disk_space is set to true.
+- `replica_disk_datastore_id` (String) Datastore to store replica disks for instant clone machines. This property is required if use_separate_datastores_replica_and_os_disks is set to true.
+- `use_separate_datastores_replica_and_os_disks` (Boolean) Indicates whether to use separate datastores for replica and OS disks. Defaults to `false`.
+- `use_vsan` (Boolean) Indicates whether to use vSphere vSAN. Defaults to `false`.
 
 <a id="nestedblock--storage_settings--datastores"></a>
 ### Nested Schema for `storage_settings.datastores`
 
 Required:
 
-- **datastore_id** (String) Id of the datastore.
+- `datastore_id` (String) Id of the datastore.
 
 Optional:
 
-- **sdrs_cluster** (Boolean) Id of the datastore. Defaults to `false`.
+- `sdrs_cluster` (Boolean) Id of the datastore. Defaults to `false`.
 
 
 
@@ -113,17 +113,17 @@ Optional:
 
 Required:
 
-- **ad_container_rdn** (String) Instant Clone Engine Active Directory container for ClonePrep.
-- **instant_clone_domain_account_id** (String) This is required for instant clone desktop pools. This is the administrator which will add the machines to its domain upon creation.
+- `ad_container_rdn` (String) Instant Clone Engine Active Directory container for ClonePrep.
+- `instant_clone_domain_account_id` (String) This is required for instant clone desktop pools. This is the administrator which will add the machines to its domain upon creation.
 
 Optional:
 
-- **post_synchronization_script_name** (String) Post synchronization script. ClonePrep can run a customization script on instant-clone machines after they are created or recovered or a new image is pushed. Provide the path to the script on the parent virtual machine.
-- **post_synchronization_script_parameters** (String) Post synchronization script parameters.
-- **power_off_script_name** (String) Power off script. ClonePrep can run a customization script on instant-clone machines before they are powered off. Provide the path to the script on the parent virtual machine.
-- **power_off_script_parameters** (String) Power off script parameters.
-- **priming_computer_account** (String) Instant Clone publishing needs an additional computer account in the same AD domain as the clones. This field accepts the pre-created computer accounts.
-- **reuse_pre_existing_accounts** (Boolean) Indicates whether to allow the use of existing AD computer accounts when the VM names of newly created clones match the existing computer account names. Defaults to `false`.
+- `post_synchronization_script_name` (String) Post synchronization script. ClonePrep can run a customization script on instant-clone machines after they are created or recovered or a new image is pushed. Provide the path to the script on the parent virtual machine.
+- `post_synchronization_script_parameters` (String) Post synchronization script parameters.
+- `power_off_script_name` (String) Power off script. ClonePrep can run a customization script on instant-clone machines before they are powered off. Provide the path to the script on the parent virtual machine.
+- `power_off_script_parameters` (String) Power off script parameters.
+- `priming_computer_account` (String) Instant Clone publishing needs an additional computer account in the same AD domain as the clones. This field accepts the pre-created computer accounts.
+- `reuse_pre_existing_accounts` (Boolean) Indicates whether to allow the use of existing AD computer accounts when the VM names of newly created clones match the existing computer account names. Defaults to `false`.
 
 
 <a id="nestedblock--display_protocol_settings"></a>
@@ -131,14 +131,14 @@ Optional:
 
 Optional:
 
-- **allow_users_to_choose_protocol** (Boolean) Indicates whether the users can choose the protocol. Defaults to `true`.
-- **default_display_protocol** (String) The default display protocol for the desktop pool. Defaults to `PCOIP`.
-- **grid_vgpus_enabled** (Boolean) When 3D rendering is managed by the vSphere Client, this enables support for NVIDIA GRID vGPUs. This will be false if 3D rendering is not managed by the vSphere Client. If this is true, the host or cluster associated with the desktop pool must support NVIDIA GRID and vGPU types required by the desktop pool's VirtualMachines, VmTemplate or BaseImageSnapshot. If this is false, the desktop pool's VirtualMachines, VmTemplate or BaseImageSnapshot must not support NVIDIA GRID vGPUs. Since suspending VMs with passthrough devices such as vGPUs is not possible, power_policy cannot be set to SUSPEND if this is enabled. Default value is false. Defaults to `false`.
-- **max_number_of_monitors** (Number) When render3D is disabled, the max_number_of_monitors and max_resolution_of_any_one_monitor settings determine the amount of vRAM assigned to machines in this desktop. The greater these values are, the more memory will be consume on the associated ESX hosts. Existing virtual machines must be powered off and subsequently powered on for the change to take effect. A restart will not cause the changes to take effect. If 3D is enabled and managed by View, the maximum number of monitors must be 1 or 2. For Instant Clones, this value is inherited from snapshot of Master VM. This property is required if renderer3D is set to AUTOMATIC, SOFTWARE, HARDWARE or DISABLED. Defaults to `2`.
-- **max_resolution_of_any_one_monitor** (String) If 3D rendering is enabled and managed by View, this must be set to the default value. When 3D rendering is disabled, the max_number_of_monitors and max_resolution_of_any_one_monitor settings determine the amount of vRAM assigned to machines in this desktop. The greater these values are, the more memory will be consumed on the associated ESX hosts. This setting is only relevant on managed machines. Existing virtual machines must be powered off and subsequently powered on for the change to take effect. A restart will not cause the changes to take effect. For Instant Clones, this value is inherited from snapshot of Master VM. Defaults to `WUXGA`.
-- **renderer_3d** (String) 3D rendering is supported on Windows 7 or later guests running on VMs with virtual hardware version 8 or later. The default_display_protocol must set to PCOIP and allow_users_to_choose_protocol must be set to false to enable 3D rendering. For instant clone source desktop 3D rendering always mapped to MANAGE_BY_VSPHERE_CLIENT. Defaults to `DISABLED`.
-- **session_collaboration_enabled** (Boolean) Enable session collaboration feature. Session collaboration allows a user to share their remote session with other users. BLAST must be configured as a supported protocol in supported_display_protocols. Defaults to `true`.
-- **vram_size_mb** (Number) vRAM size for View managed 3D rendering. More VRAM can improve 3D performance. Size is in MB. On ESXi 5.0 hosts, the renderer allows a maximum VRAM size of 128MB. On ESXi 5.1 and later hosts, the maximum VRAM size is 512MB. For Instant Clones, this value is inherited from snapshot of Master VM. This property is required if renderer_3d is set to AUTOMATIC, SOFTWARE or HARDWARE. Defaults to `96`.
+- `allow_users_to_choose_protocol` (Boolean) Indicates whether the users can choose the protocol. Defaults to `true`.
+- `default_display_protocol` (String) The default display protocol for the desktop pool. Defaults to `PCOIP`.
+- `grid_vgpus_enabled` (Boolean) When 3D rendering is managed by the vSphere Client, this enables support for NVIDIA GRID vGPUs. This will be false if 3D rendering is not managed by the vSphere Client. If this is true, the host or cluster associated with the desktop pool must support NVIDIA GRID and vGPU types required by the desktop pool's VirtualMachines, VmTemplate or BaseImageSnapshot. If this is false, the desktop pool's VirtualMachines, VmTemplate or BaseImageSnapshot must not support NVIDIA GRID vGPUs. Since suspending VMs with passthrough devices such as vGPUs is not possible, power_policy cannot be set to SUSPEND if this is enabled. Default value is false. Defaults to `false`.
+- `max_number_of_monitors` (Number) When render3D is disabled, the max_number_of_monitors and max_resolution_of_any_one_monitor settings determine the amount of vRAM assigned to machines in this desktop. The greater these values are, the more memory will be consume on the associated ESX hosts. Existing virtual machines must be powered off and subsequently powered on for the change to take effect. A restart will not cause the changes to take effect. If 3D is enabled and managed by View, the maximum number of monitors must be 1 or 2. For Instant Clones, this value is inherited from snapshot of Master VM. This property is required if renderer3D is set to AUTOMATIC, SOFTWARE, HARDWARE or DISABLED. Defaults to `2`.
+- `max_resolution_of_any_one_monitor` (String) If 3D rendering is enabled and managed by View, this must be set to the default value. When 3D rendering is disabled, the max_number_of_monitors and max_resolution_of_any_one_monitor settings determine the amount of vRAM assigned to machines in this desktop. The greater these values are, the more memory will be consumed on the associated ESX hosts. This setting is only relevant on managed machines. Existing virtual machines must be powered off and subsequently powered on for the change to take effect. A restart will not cause the changes to take effect. For Instant Clones, this value is inherited from snapshot of Master VM. Defaults to `WUXGA`.
+- `renderer_3d` (String) 3D rendering is supported on Windows 7 or later guests running on VMs with virtual hardware version 8 or later. The default_display_protocol must set to PCOIP and allow_users_to_choose_protocol must be set to false to enable 3D rendering. For instant clone source desktop 3D rendering always mapped to MANAGE_BY_VSPHERE_CLIENT. Defaults to `DISABLED`.
+- `session_collaboration_enabled` (Boolean) Enable session collaboration feature. Session collaboration allows a user to share their remote session with other users. BLAST must be configured as a supported protocol in supported_display_protocols. Defaults to `true`.
+- `vram_size_mb` (Number) vRAM size for View managed 3D rendering. More VRAM can improve 3D performance. Size is in MB. On ESXi 5.0 hosts, the renderer allows a maximum VRAM size of 128MB. On ESXi 5.1 and later hosts, the maximum VRAM size is 512MB. For Instant Clones, this value is inherited from snapshot of Master VM. This property is required if renderer_3d is set to AUTOMATIC, SOFTWARE or HARDWARE. Defaults to `96`.
 
 
 <a id="nestedblock--pattern_naming_settings"></a>
@@ -146,14 +146,14 @@ Optional:
 
 Required:
 
-- **naming_pattern** (String) Virtual machines will be named according to the specified naming pattern. By default, view manager appends a unique number to the specified pattern to provide a unique name for each virtual machine. To place this unique number elsewhere in the pattern, use '{n}'. (For example: vm-{n}-sales.) The unique number can also be made a fixed length. (For example: vm-{n:fixed=3}-sales will name VMs from vm-001-sales to vm-999-sales). Machine names are constrained to a maximum size of 15 characters including the unique number. Therefore, care must be taken when choosing a pattern. If the maximum desktop size is 9 machines, the pattern must be at most 14 characters. For 99 machines, 13 characters, for 999 machines, 12 characters. For 9999 machines, 11 characters. If using a fixed size token, use a maximum of 14 characters for "n=1", 13 characters for "n=2", 12 characters for "n=3", and 11 characters for "n=4". If {n} is specified with no size, a size of 2 is automatically used and if no {} is specified, {n=2} is automatically appended to the end of the pattern.
+- `naming_pattern` (String) Virtual machines will be named according to the specified naming pattern. By default, view manager appends a unique number to the specified pattern to provide a unique name for each virtual machine. To place this unique number elsewhere in the pattern, use '{n}'. (For example: vm-{n}-sales.) The unique number can also be made a fixed length. (For example: vm-{n:fixed=3}-sales will name VMs from vm-001-sales to vm-999-sales). Machine names are constrained to a maximum size of 15 characters including the unique number. Therefore, care must be taken when choosing a pattern. If the maximum desktop size is 9 machines, the pattern must be at most 14 characters. For 99 machines, 13 characters, for 999 machines, 12 characters. For 9999 machines, 11 characters. If using a fixed size token, use a maximum of 14 characters for "n=1", 13 characters for "n=2", 12 characters for "n=3", and 11 characters for "n=4". If {n} is specified with no size, a size of 2 is automatically used and if no {} is specified, {n=2} is automatically appended to the end of the pattern.
 
 Optional:
 
-- **max_number_of_machines** (Number) Maximum number of machines in the desktop pool. Defaults to `1`.
-- **min_number_of_machines** (Number) This is applicable if provisioning_time is set to ON_DEMAND with default value of 0.
-- **number_of_spare_machines** (Number) Number of spare powered on machines. Defaults to `1`.
-- **provisioning_time** (String) Determines when the machines are provisioned. ON_DEMAND: Provision machines on demand. UP_FRONT: Provision all machines up-front. Defaults to `UP_FRONT`.
+- `max_number_of_machines` (Number) Maximum number of machines in the desktop pool. Defaults to `1`.
+- `min_number_of_machines` (Number) This is applicable if provisioning_time is set to ON_DEMAND with default value of 0.
+- `number_of_spare_machines` (Number) Number of spare powered on machines. Defaults to `1`.
+- `provisioning_time` (String) Determines when the machines are provisioned. ON_DEMAND: Provision machines on demand. UP_FRONT: Provision all machines up-front. Defaults to `UP_FRONT`.
 
 
 <a id="nestedblock--sys_prep_settings"></a>
@@ -161,7 +161,7 @@ Optional:
 
 Required:
 
-- **sysprep_customization_spec_id** (String) This is required when customization_type is set as SYS_PREP. Customization specification to use when Sysprep customization is requested.
+- `sysprep_customization_spec_id` (String) This is required when customization_type is set as SYS_PREP. Customization specification to use when Sysprep customization is requested.
 
 
 <a id="nestedblock--view_storage_accelerator_settings"></a>
@@ -169,18 +169,18 @@ Required:
 
 Optional:
 
-- **blackout_times** (Block List) Fields for specifying blackout time for View Storage Accelerator. Storage accelerator regeneration and VM disk space reclamation do not occur during blackout times. The same blackout policy applies to both operations. (see [below for nested schema](#nestedblock--view_storage_accelerator_settings--blackout_times))
-- **regenerate_view_storage_accelerator_days** (Number) How often to regenerate the View Storage Accelerator cache. Measured in Days. This property is required if useViewStorageAccelerator is set to true.  Defaults to `7`.
-- **use_view_storage_accelerator** (Boolean) Indicates whether to use View Storage Accelerator.  Defaults to `false`.
-- **view_storage_accelerator_disk_types** (String) Disk types to enable for the View Storage Accelerator feature. Not applicable to full clone pools
+- `blackout_times` (Block List) Fields for specifying blackout time for View Storage Accelerator. Storage accelerator regeneration and VM disk space reclamation do not occur during blackout times. The same blackout policy applies to both operations. (see [below for nested schema](#nestedblock--view_storage_accelerator_settings--blackout_times))
+- `regenerate_view_storage_accelerator_days` (Number) How often to regenerate the View Storage Accelerator cache. Measured in Days. This property is required if useViewStorageAccelerator is set to true.  Defaults to `7`.
+- `use_view_storage_accelerator` (Boolean) Indicates whether to use View Storage Accelerator.  Defaults to `false`.
+- `view_storage_accelerator_disk_types` (String) Disk types to enable for the View Storage Accelerator feature. Not applicable to full clone pools
 
 <a id="nestedblock--view_storage_accelerator_settings--blackout_times"></a>
 ### Nested Schema for `view_storage_accelerator_settings.blackout_times`
 
 Required:
 
-- **days** (List of String) List of days for a given range of time.
-- **end_time** (String) Ending time for the blackout in 24-hour format.
-- **start_time** (String) Starting time for the blackout in 24-hour format.
+- `days` (List of String) List of days for a given range of time.
+- `end_time` (String) Ending time for the blackout in 24-hour format.
+- `start_time` (String) Starting time for the blackout in 24-hour format.
 
 
