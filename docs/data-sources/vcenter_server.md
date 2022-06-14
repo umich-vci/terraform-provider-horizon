@@ -17,25 +17,22 @@ Data source for reading information about a vCenter from Horizon.
 
 ### Required
 
-- **server_name** (String) Virtual Center's server name or IP address.
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `server_name` (String) Virtual Center's server name or IP address.
 
 ### Read-Only
 
-- **deployment_type** (String) Indicates different environments that Horizon can be deployed into. GENERAL: Horizon is deployed on On-premises. AZURE: Horizon is deployed on Azure. AWS: Horizon is deployed on AWS. DELL_EMC: Horizon is deployed on Dell EMC. GOOGLE: Horizon is deployed on Google Cloud. ORACLE: Horizon is deployed on Oracle Cloud.
-- **description** (String) Human readable description of the Virtual Center instance.
-- **display_name** (String) Human readable name of the Virtual Center instance.
-- **enabled** (Boolean) Indicates if the virtual center is enabled.
-- **has_virtual_tpm_pools** (Boolean) Indicates if there is any instant clone Desktop pool associated with this Virtual Center which has addVirtualTPM set
-- **instance_uuid** (String) Virtual center's instanceUuid.
-- **maintenance_mode** (Boolean) Indicates if maintenance or upgrade task is scheduled on Virtual center or hosts
-- **port** (Number) Port of the virtual center to connect to.
-- **se_sparse_reclamation_enabled** (Boolean) Indicates if Storage Efficiency Sparse (seSparse) reclamation is enabled.
-- **use_ssl** (Boolean) Indicates if SSL should be used when connecting to the server.
-- **user_name** (String) User name to use for the connection.
-- **version** (String) Version of the Virtual Center.
+- `deployment_type` (String) Indicates different environments that Horizon can be deployed into. GENERAL: Horizon is deployed on On-premises. AZURE: Horizon is deployed on Azure. AWS: Horizon is deployed on AWS. DELL_EMC: Horizon is deployed on Dell EMC. GOOGLE: Horizon is deployed on Google Cloud. ORACLE: Horizon is deployed on Oracle Cloud.
+- `description` (String) Human readable description of the Virtual Center instance.
+- `display_name` (String) Human readable name of the Virtual Center instance.
+- `enabled` (Boolean) Indicates if the virtual center is enabled.
+- `has_virtual_tpm_pools` (Boolean) Indicates if there is any instant clone Desktop pool associated with this Virtual Center which has addVirtualTPM set
+- `id` (String) The ID of this resource.
+- `instance_uuid` (String) Virtual center's instanceUuid.
+- `maintenance_mode` (Boolean) Indicates if maintenance or upgrade task is scheduled on Virtual center or hosts
+- `port` (Number) Port of the virtual center to connect to.
+- `se_sparse_reclamation_enabled` (Boolean) Indicates if Storage Efficiency Sparse (seSparse) reclamation is enabled.
+- `use_ssl` (Boolean) Indicates if SSL should be used when connecting to the server.
+- `user_name` (String) User name to use for the connection.
+- `version` (String) Version of the Virtual Center.
 
 

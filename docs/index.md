@@ -25,11 +25,11 @@ provider "horizon" {
 
 ### Required
 
-- **domain** (String) This is the AD Domain of the `username` used to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_DOMAIN`.
-- **horizon_host** (String) This is the hostname or IP address of the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_HOST`.
-- **password** (String, Sensitive) This is the password to use to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_PASSWORD`.
-- **username** (String) This is the username to use to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_USERNAME`.
+- `domain` (String) This is the AD Domain of the `username` used to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_DOMAIN`.
+- `horizon_host` (String) This is the hostname or IP address of the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_HOST`.
+- `password` (String, Sensitive) This is the password to use to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_PASSWORD`.
+- `username` (String) This is the username to use to access the VMware Horizon server. This must be provided in the config or in the environment variable `HORIZON_USERNAME`.
 
 ### Optional
 
-- **ssl_verify** (Boolean) Verify the SSL certificate of the VMware Horizon server? Defaults to `true`.
+- `ssl_verify` (Boolean) Verify the SSL certificate of the VMware Horizon server? Defaults to `true`.

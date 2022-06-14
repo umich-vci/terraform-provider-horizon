@@ -17,17 +17,14 @@ Data source to find the ID of a vCenter Datacenter.
 
 ### Required
 
-- **host_or_cluster_id** (String) Host or Cluster ID
-- **name** (String) Resource pool name.
-- **vcenter_id** (String) Virtual Center ID
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `host_or_cluster_id` (String) Host or Cluster ID
+- `name` (String) Resource pool name.
+- `vcenter_id` (String) Virtual Center ID
 
 ### Read-Only
 
-- **path** (String) Resource pool path.
-- **type** (String) Resource pool type. HOST: Host used as a resource pool suitable for use in desktop pool/farm. CLUSTER: Cluster used as a resource pool suitable for use in desktop pool/farm. RESOURCE_POOL: Regular resource pool suitable for use in desktop pool/farm. OTHER: Other resource type which cannot be used in desktop pool/farm.
+- `id` (String) The ID of this resource.
+- `path` (String) Resource pool path.
+- `type` (String) Resource pool type. HOST: Host used as a resource pool suitable for use in desktop pool/farm. CLUSTER: Cluster used as a resource pool suitable for use in desktop pool/farm. RESOURCE_POOL: Regular resource pool suitable for use in desktop pool/farm. OTHER: Other resource type which cannot be used in desktop pool/farm.
 
 

@@ -17,25 +17,22 @@ Data source to find the ID of a vCenter Datacenter.
 
 ### Required
 
-- **host_or_cluster_id** (String) Host or Cluster ID
-- **name** (String) Datastore name.
-- **vcenter_id** (String) Virtual Center ID
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `host_or_cluster_id` (String) Host or Cluster ID
+- `name` (String) Datastore name.
+- `vcenter_id` (String) Virtual Center ID
 
 ### Read-Only
 
-- **capacity_mb** (Number) Maximum capacity of this datastore, in MB.
-- **datacenter_id** (String) Datacenter id for this datastore.
-- **disk_type** (String) Disk type of the datastore. SSD: Solid State Drive disk type. NON_SSD: NON-Solid State Drive disk type. UNKNOWN: Unknown disk type. NON_VMFS: NON-VMFS disk type.
-- **file_system_type** (String) File system type of the datastore. VMFS: Virtual Machine File System. NFS: Network File System. VSAN: vSAN File System. VVOL: Virtual Volumes. UNKNOWN: Unknown File System type.
-- **free_space_mb** (Number) Available capacity of this datastore, in MB.
-- **incompatible_reasons** (Set of String) Reasons that may preclude this Datastore from being used in desktop pool/farm.
-- **local_datastore** (Boolean) Indicates if this datastore is local to a single host.
-- **number_of_vms** (Number) Indicates the number of virtual machines the datastore has for desktop pool/farm when applicable
-- **path** (String) Datastore path.
-- **vmfs_major_version** (String) The VMFS major version number.
+- `capacity_mb` (Number) Maximum capacity of this datastore, in MB.
+- `datacenter_id` (String) Datacenter id for this datastore.
+- `disk_type` (String) Disk type of the datastore. SSD: Solid State Drive disk type. NON_SSD: NON-Solid State Drive disk type. UNKNOWN: Unknown disk type. NON_VMFS: NON-VMFS disk type.
+- `file_system_type` (String) File system type of the datastore. VMFS: Virtual Machine File System. NFS: Network File System. VSAN: vSAN File System. VVOL: Virtual Volumes. UNKNOWN: Unknown File System type.
+- `free_space_mb` (Number) Available capacity of this datastore, in MB.
+- `id` (String) The ID of this resource.
+- `incompatible_reasons` (Set of String) Reasons that may preclude this Datastore from being used in desktop pool/farm.
+- `local_datastore` (Boolean) Indicates if this datastore is local to a single host.
+- `number_of_vms` (Number) Indicates the number of virtual machines the datastore has for desktop pool/farm when applicable
+- `path` (String) Datastore path.
+- `vmfs_major_version` (String) The VMFS major version number.
 
 

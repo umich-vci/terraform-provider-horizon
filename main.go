@@ -1,9 +1,7 @@
 package main
 
 import (
-	"context"
 	"flag"
-	"log"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
 	"github.com/umich-vci/terraform-provider-horizon/internal/provider"
@@ -34,14 +32,13 @@ func main() {
 	flag.BoolVar(&debugMode, "debug", false, "set to true to run the provider with support for debuggers like delve")
 	flag.Parse()
 
-	opts := &plugin.ServeOpts{ProviderFunc: provider.New(version)}
+	opts := &plugin.ServeOpts{
+		Debug: debugMode,
 
-	if debugMode {
-		err := plugin.Debug(context.Background(), "registry.terraform.io/umich-vci/horizon", opts)
-		if err != nil {
-			log.Fatal(err.Error())
-		}
-		return
+		// TODO: update this string with the full name of your provider as used in your configs
+		ProviderAddr: "registry.terraform.io/umich-vci/horizon",
+
+		ProviderFunc: provider.New(version),
 	}
 
 	plugin.Serve(opts)

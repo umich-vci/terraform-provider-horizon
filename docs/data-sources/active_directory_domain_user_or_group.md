@@ -17,31 +17,31 @@ Summary information related to AD Users or Groups. List API returning this summa
 
 ### Required
 
-- **filter** (String) A JSON string containing the filter to use to find the Active Directory User or Group. The filter must find exactly 1 result or an error will be returned.
+- `filter` (String) A JSON string containing the filter to use to find the Active Directory User or Group. The filter must find exactly 1 result or an error will be returned.
 
 ### Optional
 
-- **group_only** (Boolean) If passed as "true", then only groups are returned. If passed as "false", then only users are returned. If not passed passed at all, then both types are returned
-- **id** (String) The ID of this resource.
+- `group_only` (Boolean) If passed as "true", then only groups are returned. If passed as "false", then only users are returned. If not passed passed at all, then both types are returned
 
 ### Read-Only
 
-- **container** (String) AD container for this user or group.
-- **description** (String) Description number of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
-- **display_name** (String) Login name with domain of this user or group.
-- **distinguished_name** (String) Active Directory distinguished name for this user or group.
-- **domain** (String) DNS name of the domain in which this user or group belongs. Supported Filters : 'Equals'. Also, if 'Or' filter is used anywhere in filter string for this model class, then that 'Or' filter should nest only 'Equals' filter on 'domain' or 'id' field.
-- **email** (String) Email address of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
-- **first_name** (String) First name of this user or group.
-- **group** (Boolean) Indicates if this object represents a group.  This field is NOT supported in filter string. To use any filter on 'group', use 'group_only' query param directly.
-- **guid** (String) GUID of the user or group in RFC 4122 format. Supported Filters : 'Equals'.
-- **kiosk_user** (Boolean) Indicates if this user or group is a "kiosk user" that supports client authentication. Client authentication is the process of supporting client devices directly logging into resources.
-- **last_name** (String) Last name of this user or group.
-- **login_name** (String) Login name of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
-- **long_display_name** (String) Login name, domain and name for this user or group, else display name
-- **name** (String) Name of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
-- **phone** (String) Phone number of this user. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
-- **user_display_name** (String) User or group's display name. This corresponds with displayName attribute in AD.
-- **user_principal_name** (String) User Principal name(UPN) of this user. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
+- `container` (String) AD container for this user or group.
+- `description` (String) Description number of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
+- `display_name` (String) Login name with domain of this user or group.
+- `distinguished_name` (String) Active Directory distinguished name for this user or group.
+- `domain` (String) DNS name of the domain in which this user or group belongs. Supported Filters : 'Equals'. Also, if 'Or' filter is used anywhere in filter string for this model class, then that 'Or' filter should nest only 'Equals' filter on 'domain' or 'id' field.
+- `email` (String) Email address of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
+- `first_name` (String) First name of this user or group.
+- `group` (Boolean) Indicates if this object represents a group.  This field is NOT supported in filter string. To use any filter on 'group', use 'group_only' query param directly.
+- `guid` (String) GUID of the user or group in RFC 4122 format. Supported Filters : 'Equals'.
+- `id` (String) The ID of this resource.
+- `kiosk_user` (Boolean) Indicates if this user or group is a "kiosk user" that supports client authentication. Client authentication is the process of supporting client devices directly logging into resources.
+- `last_name` (String) Last name of this user or group.
+- `login_name` (String) Login name of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
+- `long_display_name` (String) Login name, domain and name for this user or group, else display name
+- `name` (String) Name of this user or group. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
+- `phone` (String) Phone number of this user. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
+- `user_display_name` (String) User or group's display name. This corresponds with displayName attribute in AD.
+- `user_principal_name` (String) User Principal name(UPN) of this user. Supported Filters : 'Equals', 'StartsWith', 'Contains'.
 
 

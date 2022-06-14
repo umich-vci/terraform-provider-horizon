@@ -17,15 +17,12 @@ Data source for reading information about a local access group from Horizon.
 
 ### Required
 
-- **name** (String) Access group name.
-
-### Optional
-
-- **id** (String) The ID of this resource.
+- `name` (String) Access group name.
 
 ### Read-Only
 
-- **deletable** (Boolean) Indicates whether this access group can be deleted.
-- **description** (String) Access group description.
+- `deletable` (Boolean) Indicates whether this access group can be deleted.
+- `description` (String) Access group description.
+- `id` (String) The ID of this resource.
 
 
